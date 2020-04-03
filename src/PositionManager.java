@@ -1,4 +1,4 @@
-public class Positions {
+public class PositionManager {
     private String[] positions = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
     public boolean isMatchingRow(int position1, int position2, int position3, String symbol) {
