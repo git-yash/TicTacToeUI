@@ -24,6 +24,19 @@ public class Players {
                 this.player2SymbolChoice;
     }
 
+
+    public String getStatusText(GameStatus status) {
+        switch (status) {
+            case DRAW:
+                return "This is a draw";
+            case WIN:
+                return "Player " + this.getCurrentPlayer() + " wins";
+            default:
+            case NEXT:
+                return "Player " + this.getNextPlayer() + " your turn";
+        }
+    }
+
     public void reset() {
         this.currentPlayerSymbolChoice = "";
     }

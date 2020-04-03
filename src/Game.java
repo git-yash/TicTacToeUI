@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class Game {
     private JLabel status = new JLabel();
     JFrame window = ComponentBuilder.createWindow();
@@ -66,9 +68,15 @@ public class Game {
             this.positionManager.setPosition(Integer.parseInt(button.getText()), this.players.getCurrentPlayer());
             button.setText(this.players.getCurrentPlayer());
 
-            String gameStatus = StatusBuilder.getGameStatus(numberOfTurns, positionManager, players);
-            this.status.setText(gameStatus);
-            this.players.changePlayer();
+            GameStatus gameStatus = GameStatus.getGameStatus(numberOfTurns, positionManager, players);
+            String statusText = this.players.getStatusText(gameStatus);
+            if (GameStatus.shouldEndGame(gameStatus)) {
+                showMessageDialog(window, statusText);
+                this.startGame();
+            } else {
+                this.status.setText(statusText);
+                this.players.changePlayer();
+            }
         };
     }
 }
