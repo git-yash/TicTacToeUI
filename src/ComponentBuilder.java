@@ -20,6 +20,8 @@ public class ComponentBuilder {
         f.getContentPane().removeAll();
         f.setPreferredSize(new Dimension(220, 350));
         f.getContentPane().setLayout(new FlowLayout());
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setResizable(false);
 
         return f;
     }

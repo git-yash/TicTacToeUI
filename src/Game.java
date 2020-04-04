@@ -54,6 +54,21 @@ public class Game {
         return e -> this.startGame();
     }
 
+    private void highlightWiningRow() {
+        Row winningRow = positionManager.getWinnerRow(this.players.getCurrentPlayer());
+        if (winningRow != null) {
+            Component[] components = window.getContentPane().getComponents();
+            for (Component component : components) {
+                if (component.getClass().getName().contains("JButton")) {
+                    JButton button = (JButton) component;
+                    if (button.getText().equals(players.getCurrentPlayer())) {
+                        button.setBackground(Color.green);
+                    }
+                }
+            }
+        }
+    }
+
     private ActionListener createActionListener() {
         return e -> {
             JButton button = (JButton) e.getSource();
@@ -71,6 +86,9 @@ public class Game {
             GameStatus gameStatus = GameStatus.getGameStatus(numberOfTurns, positionManager, players);
             String statusText = this.players.getStatusText(gameStatus);
             if (GameStatus.shouldEndGame(gameStatus)) {
+                if (gameStatus == GameStatus.WIN) {
+                    this.highlightWiningRow();
+                }
                 showMessageDialog(window, statusText);
                 this.startGame();
             } else {
